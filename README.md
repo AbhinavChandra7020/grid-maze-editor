@@ -2,6 +2,10 @@
 
 A web-based maze editor designed for reinforcement learning research and experimentation. Create, customize, and export maze environments with an intuitive visual interface. This is a feature of another application that will be used to train RL mazes.
 
+# Deployment
+
+[Live Demo](https://grid-maze-editor.vercel.app)
+
 ## Installation
 
 ### Prerequisites
