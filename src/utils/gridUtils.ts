@@ -38,10 +38,7 @@ export function arePositionsDifferent(pos1: Position | null, pos2: Position | nu
     return pos1.row !== pos2.row || pos1.col !== pos2.col;
 }
 
-/**
- * Updates a single cell in the grid without mutating the original
- * This prevents unnecessary re-renders and maintains immutability
- */
+
 export function updateCell(
     grid: CellValue[][], 
     row: number, 
@@ -55,9 +52,7 @@ export function updateCell(
     );
 }
 
-/**
- * Validates if a grid size is within acceptable bounds
- */
+
 export function isValidGridSize(rows: number, cols: number): boolean {
     return rows >= 5 && rows <= 40 && cols >= 5 && cols <= 40;
 }

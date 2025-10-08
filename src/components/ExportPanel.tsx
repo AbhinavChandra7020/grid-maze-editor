@@ -63,22 +63,21 @@ function ExportPanel({ grid, startPos, goalPos, canvasRef }: ExportPanelProps) {
       case 'error':
         return 'px-4 py-2 bg-red-100 text-red-700 rounded-lg font-medium';
       default:
-        return 'px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium hover:bg-blue-200 transition-colors';
+        return 'px-4 py-2 bg-slate-100 text-slate-700 rounded-lg font-medium hover:bg-slate-200';
     }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">Export Maze</h2>
+    <div className="bg-white rounded-lg shadow-md p-6 -mt-8">
+      <h2 className="text-xl font-semibold text-gray-800">Export Maze</h2>
 
-      {/* Invert values option */}
       <div className="mb-4 p-3 bg-gray-50 rounded border border-gray-200">
         <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={invertValues}
             onChange={(e) => setInvertValues(e.target.checked)}
-            className="w-4 h-4"
+            className="w-4 h-4 accent-red-600"
           />
           <span className="text-sm text-gray-700">
             Invert values on export (swap 0↔1)
@@ -89,15 +88,13 @@ function ExportPanel({ grid, startPos, goalPos, canvasRef }: ExportPanelProps) {
         </p>
       </div>
 
-      {/* Export buttons */}
       <div className="space-y-3">
-        {/* Python Export */}
         <div>
           <h3 className="text-sm font-semibold text-gray-700 mb-2">Python/NumPy</h3>
           <div className="flex gap-2">
             <button
               onClick={handleExportPython}
-              className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+              className="flex-1 px-4 py-2 bg-slate-700 text-white rounded-lg font-medium hover:bg-slate-800"
             >
               Download .py
             </button>
@@ -111,38 +108,34 @@ function ExportPanel({ grid, startPos, goalPos, canvasRef }: ExportPanelProps) {
           </div>
         </div>
 
-        {/* JSON Export */}
         <div>
           <h3 className="text-sm font-semibold text-gray-700 mb-2">JSON Format</h3>
           <button
             onClick={handleExportJSON}
-            className="w-full px-4 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"
+            className="w-full px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700"
           >
             Download .json
           </button>
         </div>
 
-        {/* PNG Export */}
         <div>
           <h3 className="text-sm font-semibold text-gray-700 mb-2">Image (PNG)</h3>
           <button
             onClick={handleExportPNG}
-            className="w-full px-4 py-2 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors"
+            className="w-full px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700"
           >
             Download .png
           </button>
         </div>
       </div>
 
-      {/* Info section */}
       <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
         <p className="text-xs text-blue-800">
           <strong>Tip:</strong> Python export includes start/goal positions ready for your RL environment setup.
         </p>
       </div>
 
-      {/* Copy error fallback message */}
-      {copyStatus === 'error' && (
+=      {copyStatus === 'error' && (
         <div className="mt-2 p-2 bg-red-50 rounded border border-red-200">
           <p className="text-xs text-red-700">
             Copy failed. Try downloading the file instead.

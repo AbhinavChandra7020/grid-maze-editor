@@ -1,7 +1,6 @@
 import type { DrawMode, GridSize } from '@/types';
 import { useState } from 'react';
 import { isValidGridSize } from '@/utils/gridUtils';
-import { getShortcutLabel } from '@/utils/keyboardShortcuts';
 
 interface ToolbarProps {
   drawMode: DrawMode;
@@ -38,12 +37,12 @@ function Toolbar({
   ];
 
   const presetSizes = [
-    { rows: 5, cols: 5, label: '5×5' },
-    { rows: 10, cols: 10, label: '10×10' },
-    { rows: 15, cols: 15, label: '15×15' },
-    { rows: 20, cols: 20, label: '20×20' },
-    { rows: 30, cols: 30, label: '30×30' },
-    { rows: 40, cols: 40, label: '40×40' },
+    { rows: 5, cols: 5, label: '5x5' },
+    { rows: 10, cols: 10, label: '10x10' },
+    { rows: 15, cols: 15, label: '15x15' },
+    { rows: 20, cols: 20, label: '20x20' },
+    { rows: 30, cols: 30, label: '30x30' },
+    { rows: 40, cols: 40, label: '40x40' },
   ];
 
   const handlePresetSize = (size: GridSize) => {
@@ -52,31 +51,25 @@ function Toolbar({
     onGridSizeChange(size);
   };
 
-  // Real-time validation for rows input
   const handleRowsChange = (value: string) => {
-    // Allow empty string for editing
     if (value === '') {
       setCustomRows('');
       return;
     }
 
     const num = parseInt(value);
-    // Only update if valid number and within range
     if (!isNaN(num) && num >= 5 && num <= 40) {
       setCustomRows(value);
     }
   };
 
-  // Real-time validation for columns input
   const handleColsChange = (value: string) => {
-    // Allow empty string for editing
     if (value === '') {
       setCustomCols('');
       return;
     }
 
     const num = parseInt(value);
-    // Only update if valid number and within range
     if (!isNaN(num) && num >= 5 && num <= 40) {
       setCustomCols(value);
     }
@@ -90,7 +83,6 @@ function Toolbar({
       onGridSizeChange({ rows, cols });
     } else {
       alert('Grid size must be between 5 and 40 for both dimensions');
-      // Reset to current valid size
       setCustomRows(gridSize.rows.toString());
       setCustomCols(gridSize.cols.toString());
     }
@@ -98,7 +90,6 @@ function Toolbar({
 
   return (
     <div className="space-y-6">
-      {/* Drawing Mode Section */}
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-lg font-semibold mb-4 text-gray-700">Drawing Mode</h2>
         <div className="space-y-2">
@@ -106,15 +97,15 @@ function Toolbar({
             <button
               key={mode.value}
               onClick={() => onModeChange(mode.value)}
-              className={`w-full px-4 py-3 rounded-lg font-medium transition-colors flex justify-between items-center ${
+              className={`w-full px-4 py-3 rounded-lg font-medium flex justify-between items-center ${
                 drawMode === mode.value
-                  ? 'bg-blue-500 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-slate-700 text-white'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
               <span>{mode.label}</span>
               <span className={`text-xs px-2 py-1 rounded ${
-                drawMode === mode.value ? 'bg-blue-600' : 'bg-gray-200'
+                drawMode === mode.value ? 'bg-slate-800' : 'bg-slate-200'
               }`}>
                 {mode.hint}
               </span>
@@ -126,20 +117,18 @@ function Toolbar({
         </p>
       </div>
 
-      {/* Grid Size Section */}
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-lg font-semibold mb-4 text-gray-700">Grid Size</h2>
         
-        {/* Preset sizes */}
         <div className="grid grid-cols-2 gap-2 mb-4">
           {presetSizes.map((size) => (
             <button
               key={size.label}
               onClick={() => handlePresetSize(size)}
-              className={`px-3 py-2 rounded font-medium text-sm transition-colors ${
+              className={`px-3 py-2 rounded font-medium text-sm ${
                 gridSize.rows === size.rows && gridSize.cols === size.cols
-                  ? 'bg-green-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-slate-700 text-white'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
               {size.label}
@@ -147,7 +136,6 @@ function Toolbar({
           ))}
         </div>
 
-        {/* Custom size inputs */}
         <div className="space-y-2">
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -159,7 +147,7 @@ function Toolbar({
               max="40"
               value={customRows}
               onChange={(e) => handleRowsChange(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-slate-500"
             />
           </div>
           <div>
@@ -172,20 +160,19 @@ function Toolbar({
               max="40"
               value={customCols}
               onChange={(e) => handleColsChange(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-slate-500"
             />
           </div>
           <button
             onClick={handleCustomSize}
             disabled={customRows === '' || customCols === ''}
-            className="w-full px-4 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 bg-slate-700 text-white rounded-lg font-medium hover:bg-slate-800 disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             Apply Custom Size
           </button>
         </div>
       </div>
 
-      {/* Generate Maze Section */}
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-lg font-semibold mb-4 text-gray-700">Generate Maze</h2>
         
@@ -201,7 +188,7 @@ function Toolbar({
               step="0.05"
               value={wallDensity}
               onChange={(e) => setWallDensity(parseFloat(e.target.value))}
-              className="w-full"
+              className="w-full accent-red-600"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>10%</span>
@@ -211,12 +198,11 @@ function Toolbar({
 
           <button
             onClick={() => onGenerateRandom(wallDensity)}
-            className="w-full px-4 py-3 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors shadow-md"
+            className="w-full px-4 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700"
           >
             Random Maze
           </button>
 
-          {/* Divider */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -226,34 +212,33 @@ function Toolbar({
             </div>
           </div>
 
-          {/* Algorithm buttons */}
           <div className="space-y-2">
             <button
               onClick={() => onGenerateMaze('dfs')}
-              className="w-full px-3 py-2 bg-indigo-500 text-white rounded font-medium hover:bg-indigo-600 transition-colors text-sm"
+              className="w-full px-3 py-2 bg-slate-600 text-white rounded font-medium hover:bg-slate-700 text-sm"
             >
-              DFS (Long Corridors)
+              Long Corridors
             </button>
             
             <button
               onClick={() => onGenerateMaze('prim')}
-              className="w-full px-3 py-2 bg-purple-500 text-white rounded font-medium hover:bg-purple-600 transition-colors text-sm"
+              className="w-full px-3 py-2 bg-slate-600 text-white rounded font-medium hover:bg-slate-700 text-sm"
             >
-              Prim's (Branching)
+              Branching
             </button>
             
             <button
               onClick={() => onGenerateMaze('kruskal')}
-              className="w-full px-3 py-2 bg-pink-500 text-white rounded font-medium hover:bg-pink-600 transition-colors text-sm"
+              className="w-full px-3 py-2 bg-slate-600 text-white rounded font-medium hover:bg-slate-700 text-sm"
             >
-              Kruskal's (Uniform)
+              Uniform
             </button>
             
             <button
               onClick={() => onGenerateMaze('binary')}
-              className="w-full px-3 py-2 bg-cyan-500 text-white rounded font-medium hover:bg-cyan-600 transition-colors text-sm"
+              className="w-full px-3 py-2 bg-slate-600 text-white rounded font-medium hover:bg-slate-700 text-sm"
             >
-              Binary Tree (Fast)
+              Fast
             </button>
           </div>
           
@@ -263,28 +248,27 @@ function Toolbar({
         </div>
       </div>
 
-      {/* Utility Actions Section */}
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-lg font-semibold mb-4 text-gray-700">Utility Actions</h2>
         
         <div className="space-y-2">
           <button
             onClick={onClearGrid}
-            className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors"
+            className="w-full px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700"
           >
             Clear Grid (All Walkable)
           </button>
           
           <button
             onClick={onFillWalls}
-            className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+            className="w-full px-4 py-2 bg-slate-700 text-white rounded-lg font-medium hover:bg-slate-800"
           >
             Fill All Walls
           </button>
           
           <button
             onClick={onClearMarkers}
-            className="w-full px-4 py-2 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition-colors"
+            className="w-full px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700"
           >
             Clear Start/Goal
           </button>

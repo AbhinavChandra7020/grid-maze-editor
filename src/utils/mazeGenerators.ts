@@ -1,9 +1,6 @@
 import type { CellValue, GridSize, Position } from '@/types';
 
-/**
- * Generates a perfect maze using Recursive Backtracker (DFS) algorithm
- * Creates long, winding corridors
- */
+
 export function generateMazeDFS(size: GridSize): CellValue[][] {
   const rows = size.rows % 2 === 0 ? size.rows - 1 : size.rows;
   const cols = size.cols % 2 === 0 ? size.cols - 1 : size.cols;
@@ -83,10 +80,7 @@ export function generateMazeDFS(size: GridSize): CellValue[][] {
   return grid;
 }
 
-/**
- * Generates a maze using Randomized Prim's Algorithm
- * Creates more branching patterns than DFS
- */
+
 export function generateMazePrim(size: GridSize): CellValue[][] {
   const rows = size.rows % 2 === 0 ? size.rows - 1 : size.rows;
   const cols = size.cols % 2 === 0 ? size.cols - 1 : size.cols;
@@ -181,10 +175,7 @@ export function generateMazePrim(size: GridSize): CellValue[][] {
   return grid;
 }
 
-/**
- * Generates a maze using Kruskal's Algorithm
- * Creates uniform distribution of paths
- */
+
 export function generateMazeKruskal(size: GridSize): CellValue[][] {
   const rows = size.rows % 2 === 0 ? size.rows - 1 : size.rows;
   const cols = size.cols % 2 === 0 ? size.cols - 1 : size.cols;
@@ -268,10 +259,7 @@ export function generateMazeKruskal(size: GridSize): CellValue[][] {
   return grid;
 }
 
-/**
- * Generates a maze using Binary Tree Algorithm
- * Fast but creates obvious diagonal bias
- */
+
 export function generateMazeBinaryTree(size: GridSize): CellValue[][] {
   const rows = size.rows % 2 === 0 ? size.rows - 1 : size.rows;
   const cols = size.cols % 2 === 0 ? size.cols - 1 : size.cols;
@@ -311,10 +299,7 @@ export function generateMazeBinaryTree(size: GridSize): CellValue[][] {
   return grid;
 }
 
-/**
- * Generates a random maze with specified wall density
- * Not guaranteed to be solvable
- */
+
 export function generateRandomMaze(size: GridSize, wallDensity: number = 0.3): CellValue[][] {
   const grid: CellValue[][] = [];
 

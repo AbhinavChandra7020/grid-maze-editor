@@ -1,8 +1,5 @@
 import type { CellValue, Position } from '@/types';
 
-/**
- * Generates Python code with NumPy array format
- */
 export function exportToPython(
   grid: CellValue[][], 
   startPos: Position | null, 
@@ -41,9 +38,7 @@ print(f"Goal: {goal_pos}")
   return code;
 }
 
-/**
- * Generates JSON format
- */
+
 export function exportToJSON(
   grid: CellValue[][], 
   startPos: Position | null, 
@@ -72,9 +67,7 @@ export function exportToJSON(
   return JSON.stringify(data, null, 2);
 }
 
-/**
- * Downloads a file to the user's computer
- */
+
 export function downloadFile(content: string, filename: string, mimeType: string) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
@@ -87,9 +80,7 @@ export function downloadFile(content: string, filename: string, mimeType: string
   URL.revokeObjectURL(url);
 }
 
-/**
- * Exports canvas as PNG image
- */
+
 export function exportCanvasToPNG(canvas: HTMLCanvasElement, filename: string) {
   canvas.toBlob((blob) => {
     if (blob) {
@@ -105,11 +96,8 @@ export function exportCanvasToPNG(canvas: HTMLCanvasElement, filename: string) {
   });
 }
 
-/**
- * Copy text to clipboard with fallback for older browsers
- */
+
 export async function copyToClipboard(text: string): Promise<boolean> {
-  // Modern clipboard API
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(text);
@@ -119,7 +107,6 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     }
   }
   
-  // Fallback for older browsers or insecure contexts
   const textArea = document.createElement('textarea');
   textArea.value = text;
   textArea.style.position = 'fixed';
